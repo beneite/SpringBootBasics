@@ -1,14 +1,9 @@
 package com.springgroup.springboot_rest_api.controller;
 
 import com.springgroup.springboot_rest_api.bean.Student;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +52,15 @@ public class StudentController {
     public Student createStudentRecord(@RequestBody Student student){
         System.out.println("Record created");
         System.out.println(student.getStudentId());
+        System.out.println(student.getStudentFirstName());
+        System.out.println(student.getStudentLastName());
+        return student;
+    }
+
+    // url: http://localhost:8080/student/3/update
+    // REST Api [PUT] to update student record
+    @PutMapping("/student/{id}/update")
+    public Student updateStudentRecord(@RequestBody Student student, @PathParam("id") Integer studentId){
         System.out.println(student.getStudentFirstName());
         System.out.println(student.getStudentLastName());
         return student;

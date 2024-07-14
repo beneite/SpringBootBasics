@@ -1,5 +1,8 @@
 # This repo contains the basics of Sprint boot.
 
+> [!WARNING] 
+> the below request are just sample/skeleton request not the actual request.
+
 ## [GET] Simple get request:
 
 ```java
@@ -13,7 +16,7 @@ public Student returnStudentDetails(){
 
 <hr style="border:2px solid cyan">
 
-## [GET] Creating get request with path variable:
+## [GET] Creating get request with path variable: (sample)
 
 ```java
 // url: http://localhost:8080/getStudentData/2/Ashish/Mishra
@@ -26,7 +29,7 @@ public Student returnStudentData(@PathVariable("id") int studentId,@PathVariable
 
 <hr style="border:2px solid cyan">
 
-## [GET] Creating get Api using request params/ query param:
+## [GET] Creating get Api using request params/ query param:  (sample)
 
 ```java
 // url: http://localhost:8080/student/query?id=1&firstName=Ashish&lastName=Mishra
@@ -56,6 +59,23 @@ public Student createStudentRecord(@RequestBody Student student){
 ```
 
 <hr style="border:2px solid cyan">
+
+## [PUT] to update student record
+
+```java
+// url: http://localhost:8080/student/3/update
+// REST Api [PUT] to update student record
+@PutMapping("/student/{id}/update")
+public Student updateStudentRecord(@RequestBody Student student,@PathParam("id") Integer studentId){
+        System.out.println(student.getStudentFirstName());
+        System.out.println(student.getStudentLastName());
+        return student;
+        }
+```
+
+<hr style="border:2px solid cyan">
+
+
 
 # Read Me First
 
