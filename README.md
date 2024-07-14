@@ -1,6 +1,9 @@
 # This repo contains the basics of Sprint boot.
 
-## Simple get request:
+> [!WARNING] 
+> the below request are just sample/skeleton request not the actual request.
+
+## [GET] Simple get request:
 
 ```java
 // url: http://localhost:8080/getStudentDetails
@@ -13,7 +16,7 @@ public Student returnStudentDetails(){
 
 <hr style="border:2px solid cyan">
 
-## Creating get request with path variable:
+## [GET] Creating get request with path variable: (sample)
 
 ```java
 // url: http://localhost:8080/getStudentData/2/Ashish/Mishra
@@ -26,7 +29,7 @@ public Student returnStudentData(@PathVariable("id") int studentId,@PathVariable
 
 <hr style="border:2px solid cyan">
 
-## Creating get Api using request params/ query param:
+## [GET] Creating get Api using request params/ query param:  (sample)
 
 ```java
 // url: http://localhost:8080/student/query?id=1&firstName=Ashish&lastName=Mishra
@@ -34,6 +37,39 @@ public Student returnStudentData(@PathVariable("id") int studentId,@PathVariable
 @GetMapping("/student/query")
 public Student getStudentWithQueryParams(@RequestParam("id") int studentId,@RequestParam("firstName") String studentFirstName,@RequestParam("lastName") String studentLastName){
         return new Student(studentId,studentFirstName,studentLastName);
+        }
+```
+
+<hr style="border:2px solid cyan">
+
+## [POST] to create a student record
+
+```java
+// url: http://localhost:8080/student/create
+// REST Api [POST] to add student record
+@PostMapping("/student/create")
+@ResponseStatus(HttpStatus.CREATED)
+public Student createStudentRecord(@RequestBody Student student){
+        System.out.println("Record created");
+        System.out.println(student.getStudentId());
+        System.out.println(student.getStudentFirstName());
+        System.out.println(student.getStudentLastName());
+        return student;
+        }
+```
+
+<hr style="border:2px solid cyan">
+
+## [PUT] to update student record
+
+```java
+// url: http://localhost:8080/student/3/update
+// REST Api [PUT] to update student record
+@PutMapping("/student/{id}/update")
+public Student updateStudentRecord(@RequestBody Student student,@PathParam("id") Integer studentId){
+        System.out.println(student.getStudentFirstName());
+        System.out.println(student.getStudentLastName());
+        return student;
         }
 ```
 

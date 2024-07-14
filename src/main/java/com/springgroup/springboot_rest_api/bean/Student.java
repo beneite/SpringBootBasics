@@ -2,10 +2,10 @@ package com.springgroup.springboot_rest_api.bean;
 
 public class Student {
 
-    private int studentId;
+    private Integer studentId;
     private String studentFirstName;
     private String studentLastName;
-    public Student(int studentId, String studentFirstName, String studentLastName) {
+    public Student(Integer studentId, String studentFirstName, String studentLastName) {
         this.studentId = studentId;
         this.studentFirstName = studentFirstName;
         this.studentLastName = studentLastName;
@@ -14,7 +14,7 @@ public class Student {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
