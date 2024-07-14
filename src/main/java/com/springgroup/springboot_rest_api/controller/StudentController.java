@@ -66,4 +66,11 @@ public class StudentController {
         return student;
     }
 
+    // url: http://localhost:8080/student/3/delete
+    // REST Api [DELETE] to delete student record
+    @DeleteMapping("/student/{id}/delete")
+    public String deleteStudentRecord(@PathParam("id") Integer studentId){
+        return "Record deleted";
+    }
+
 }
