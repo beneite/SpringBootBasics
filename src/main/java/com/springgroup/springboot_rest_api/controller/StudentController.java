@@ -2,6 +2,7 @@ package com.springgroup.springboot_rest_api.controller;
 
 import com.springgroup.springboot_rest_api.bean.Student;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -29,5 +30,12 @@ public class StudentController {
         allStudentList.add(new Student(5, "Mukesh", "Jha"));
 
         return allStudentList;
+    }
+
+    // url: http://localhost:8080/getStudentData/2/Ashish/Mishra
+    // REST Api using path variable
+    @GetMapping("/getStudentData/{id}/{first-name}/{last-name}")
+    public Student returnStudentData(@PathVariable("id") int studentId, @PathVariable("first-name") String firstName, @PathVariable("last-name") String lastName){
+        return new Student(studentId, firstName, lastName);
     }
 }
