@@ -1,6 +1,6 @@
 # This repo contains the basics of Sprint boot.
 
-- Simple get request:
+## Simple get request:
 
 ```java
 // url: http://localhost:8080/getStudentDetails
@@ -10,8 +10,10 @@ public Student returnStudentDetails(){
         return student;
         }
 ```
+
 <hr style="border:2px solid cyan">
-- Creating get request with path variable:
+
+## Creating get request with path variable:
 
 ```java
 // url: http://localhost:8080/getStudentData/2/Ashish/Mishra
@@ -21,7 +23,24 @@ public Student returnStudentData(@PathVariable("id") int studentId,@PathVariable
         return new Student(studentId,firstName,lastName);
         }
 ```
+
 <hr style="border:2px solid cyan">
+
+## Creating get Api using request params/ query param:
+
+```java
+// url: http://localhost:8080/student/query?id=1&firstName=Ashish&lastName=Mishra
+// REST Api using request params/ query param
+@GetMapping("/student/query")
+public Student getStudentWithQueryParams(@RequestParam("id") int studentId,@RequestParam("firstName") String studentFirstName,@RequestParam("lastName") String studentLastName){
+        return new Student(studentId,studentFirstName,studentLastName);
+        }
+```
+
+<hr style="border:2px solid cyan">
+
+
+
 # Read Me First
 
 The following was discovered as part of building this project:
