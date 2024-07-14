@@ -1,6 +1,6 @@
 # This repo contains the basics of Sprint boot.
 
-> [!WARNING] 
+> [!WARNING]
 > the below request are just sample/skeleton request not the actual request.
 
 ## [GET] Simple get request:
@@ -75,7 +75,18 @@ public Student updateStudentRecord(@RequestBody Student student,@PathParam("id")
 
 <hr style="border:2px solid cyan">
 
+## [DELETE] to delete student record
 
+```java
+// url: http://localhost:8080/student/3/delete
+// REST Api [DELETE] to delete student record
+@DeleteMapping("/student/{id}/delete")
+public String deleteStudentRecord(@PathParam("id") Integer studentId){
+        return"Record deleted";
+        }
+```
+
+<hr style="border:2px solid cyan">
 
 # Read Me First
 
