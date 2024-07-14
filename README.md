@@ -9,7 +9,7 @@ public Student returnStudentDetails(){
         Student student=new Student(1,"Ashish","Mishra");
         return student;
         }
-- ```
+```
 <hr style="border:2px solid cyan">
 - Creating get request with path variable:
 
@@ -20,7 +20,7 @@ public Student returnStudentDetails(){
 public Student returnStudentData(@PathVariable("id") int studentId,@PathVariable("first-name") String firstName,@PathVariable("last-name") String lastName){
         return new Student(studentId,firstName,lastName);
         }
-  ```
+```
 <hr style="border:2px solid cyan">
 # Read Me First
 
