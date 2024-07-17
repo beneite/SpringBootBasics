@@ -1,6 +1,6 @@
-package com.springgroup.springboot_rest_api.controller;
+package com.springgroup.sampleCode.controller;
 
-import com.springgroup.springboot_rest_api.bean.Student;
+import com.springgroup.sampleCode.bean.Student;
 import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
