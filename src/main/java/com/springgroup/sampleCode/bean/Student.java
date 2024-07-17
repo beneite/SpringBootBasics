@@ -1,4 +1,4 @@
-package com.springgroup.springboot_rest_api.bean;
+package com.springgroup.sampleCode.bean;
 
 public class Student {
 
