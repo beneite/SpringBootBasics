@@ -1,5 +1,5 @@
 # This repo contains the basics of Sprint boot. Below are the content for all packages:
-- [sampleCode readme link](src/main/java/com/springgroup/sampleCode/sampleApiInfo.md)
+- [sampleCode readme link](src/main/java/com/springgroup/sampleCode/sampleApiInfo.md): For beginners
 - [springboot_rest_api](src/main/java/com/springgroup/springboot_rest_api/projectInfo.md) : this module has the APIs through which we do CRUD operations
 
 

@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -16,4 +18,11 @@ public class UserServiceImpl implements UserService {
     public UserEntity createUser(UserEntity userEntity) {
         return userRepository.save(userEntity);
     }
+
+    @Override
+    public UserEntity getUserById(Long id) {
+        Optional<UserEntity> entityOptional = userRepository.findById(id);
+        return entityOptional.get();
+    }
+
 }
