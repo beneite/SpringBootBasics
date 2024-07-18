@@ -2,13 +2,13 @@ package com.springgroup.springboot_rest_api.controller;
 
 import com.springgroup.springboot_rest_api.entity.UserEntity;
 import com.springgroup.springboot_rest_api.service.UserService;
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +41,14 @@ public class UserController {
     public ResponseEntity<List<UserEntity>> getAllUsersApi(){
         List<UserEntity> allUsersResponse = userService.getAllUsers();
         return new ResponseEntity<>(allUsersResponse, HttpStatus.OK);
+    }
+
+    // Api to update the users data, endpoint: http://localhost:8080/api/user/update/2
+    @PutMapping("update/{id}")
+    public ResponseEntity<UserEntity> updateUserDetailsApi(@PathVariable("id") Long userId,@RequestBody UserEntity userEntity){
+        userEntity.setId(userId);
+        UserEntity updatedUser = userService.updateUser(userEntity);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
 }
