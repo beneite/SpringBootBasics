@@ -4,9 +4,9 @@ import com.springgroup.springboot_rest_api.entity.UserEntity;
 import com.springgroup.springboot_rest_api.repository.UserRepository;
 import com.springgroup.springboot_rest_api.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +23,12 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUserById(Long id) {
         Optional<UserEntity> entityOptional = userRepository.findById(id);
         return entityOptional.get();
+    }
+
+    @Override
+    public List<UserEntity> getAllUsers() {
+        List<UserEntity> allUsers = userRepository.findAll();
+        return allUsers;
     }
 
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/user")
 @AllArgsConstructor
@@ -32,6 +34,13 @@ public class UserController {
     public ResponseEntity<UserEntity> getUserByIdApi(@PathVariable("id") Long userId){
         UserEntity getUser = userService.getUserById(userId);
         return new ResponseEntity<>(getUser, HttpStatus.OK);
+    }
+
+    // Api to get all the users data, endpoint: http://localhost:8080/api/user/getAllUser
+    @GetMapping("getAllUser")
+    public ResponseEntity<List<UserEntity>> getAllUsersApi(){
+        List<UserEntity> allUsersResponse = userService.getAllUsers();
+        return new ResponseEntity<>(allUsersResponse, HttpStatus.OK);
     }
 
 }
