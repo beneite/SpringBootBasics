@@ -5,6 +5,7 @@ import com.springgroup.springboot_rest_api.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +50,13 @@ public class UserController {
         userEntity.setId(userId);
         UserEntity updatedUser = userService.updateUser(userEntity);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
+
+    // Api to delete the users data, endpoint: http://localhost:8080/api/user/delete/2
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String> deleteUserApi(@PathVariable("id") Long userId){
+        userService.deleteUser(userId);
+        return new ResponseEntity<>("User with id:"+userId+" Deleted", HttpStatus.OK);
     }
 
 }
