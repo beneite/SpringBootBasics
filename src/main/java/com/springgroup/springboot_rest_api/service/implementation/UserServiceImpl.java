@@ -1,6 +1,8 @@
 package com.springgroup.springboot_rest_api.service.implementation;
 
+import com.springgroup.springboot_rest_api.dto.UserDto;
 import com.springgroup.springboot_rest_api.entity.UserEntity;
+import com.springgroup.springboot_rest_api.mapper.UserMapper;
 import com.springgroup.springboot_rest_api.repository.UserRepository;
 import com.springgroup.springboot_rest_api.service.UserService;
 import lombok.AllArgsConstructor;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -15,31 +18,36 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     @Override
-    public UserEntity createUser(UserEntity userEntity) {
-        return userRepository.save(userEntity);
+    public UserDto createUser(UserDto userDto) {
+        UserEntity userEntity = UserMapper.convertToJpa(userDto);     // userEntity is of type JPA
+        UserEntity savedEntity = userRepository.save(userEntity);     // savedEntity is of type JPA
+        UserDto savedUserDto = UserMapper.convertToDto(savedEntity);    // savedUserDto os of type DTO
+        return savedUserDto;
     }
 
     @Override
-    public UserEntity getUserById(Long id) {
+    public UserDto getUserById(Long id) {
         Optional<UserEntity> entityOptional = userRepository.findById(id);
-        return entityOptional.get();
+        UserDto userGetDto = UserMapper.convertToDto(entityOptional.get());
+        return userGetDto;
     }
 
     @Override
-    public List<UserEntity> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         List<UserEntity> allUsers = userRepository.findAll();
-        return allUsers;
+        return allUsers.stream().map(e-> UserMapper.convertToDto(e)).collect(Collectors.toList());
     }
 
     @Override
-    public UserEntity updateUser(UserEntity userEntity) {
-        UserEntity existingData = userRepository.findById(userEntity.getId()).get();
+    public UserDto updateUser(UserDto userDto) {
+        UserEntity existingData = userRepository.findById(userDto.getId()).get();
         // setting the new data to the existing one
-        existingData.setFirstName(userEntity.getFirstName());
-        existingData.setLastName(userEntity.getLastName());
-        existingData.setEmail(userEntity.getEmail());
-        userRepository.save(existingData);      // saving the data
-        return existingData;
+        existingData.setFirstName(userDto.getFirstName());
+        existingData.setLastName(userDto.getLastName());
+        existingData.setEmail(userDto.getEmail());
+        // saving the data
+        UserEntity savedUser = userRepository.save(existingData);
+        return UserMapper.convertToDto(savedUser);
     }
 
     @Override
