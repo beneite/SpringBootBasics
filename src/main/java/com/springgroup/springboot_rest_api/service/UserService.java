@@ -1,15 +1,16 @@
 package com.springgroup.springboot_rest_api.service;
 
+import com.springgroup.springboot_rest_api.dto.UserDto;
 import com.springgroup.springboot_rest_api.entity.UserEntity;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserEntity createUser (UserEntity userEntity);
-    UserEntity getUserById (Long userId);
-    List<UserEntity> getAllUsers();
-    UserEntity updateUser(UserEntity userEntity);
+    UserDto createUser (UserDto userEntity);
+    UserDto getUserById (Long userId);
+    List<UserDto> getAllUsers();
+    UserDto updateUser(UserDto userDto);
     void deleteUser(Long userId);
 
 }

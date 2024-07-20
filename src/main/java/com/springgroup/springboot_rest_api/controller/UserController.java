@@ -1,5 +1,6 @@
 package com.springgroup.springboot_rest_api.controller;
 
+import com.springgroup.springboot_rest_api.dto.UserDto;
 import com.springgroup.springboot_rest_api.entity.UserEntity;
 import com.springgroup.springboot_rest_api.service.UserService;
 import lombok.AllArgsConstructor;
@@ -25,30 +26,30 @@ public class UserController {
 
     // Api to create user, end point: http://localhost:8080/api/user/create
     @PostMapping("create")
-    public ResponseEntity<UserEntity> createUserApi(@RequestBody UserEntity userEntity){
-        UserEntity savedUser = userService.createUser(userEntity);
+    public ResponseEntity<UserDto> createUserApi(@RequestBody UserDto userEntity){
+        UserDto savedUser = userService.createUser(userEntity);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     // Api to get the user by id, end point: http://localhost:8080/api/user/getUserById/2
     @GetMapping("getUserById/{id}")
-    public ResponseEntity<UserEntity> getUserByIdApi(@PathVariable("id") Long userId){
-        UserEntity getUser = userService.getUserById(userId);
+    public ResponseEntity<UserDto> getUserByIdApi(@PathVariable("id") Long userId){
+        UserDto getUser = userService.getUserById(userId);
         return new ResponseEntity<>(getUser, HttpStatus.OK);
     }
 
     // Api to get all the users data, endpoint: http://localhost:8080/api/user/getAllUser
     @GetMapping("getAllUser")
-    public ResponseEntity<List<UserEntity>> getAllUsersApi(){
-        List<UserEntity> allUsersResponse = userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsersApi(){
+        List<UserDto> allUsersResponse = userService.getAllUsers();
         return new ResponseEntity<>(allUsersResponse, HttpStatus.OK);
     }
 
     // Api to update the users data, endpoint: http://localhost:8080/api/user/update/2
     @PutMapping("update/{id}")
-    public ResponseEntity<UserEntity> updateUserDetailsApi(@PathVariable("id") Long userId,@RequestBody UserEntity userEntity){
+    public ResponseEntity<UserDto> updateUserDetailsApi(@PathVariable("id") Long userId,@RequestBody UserDto userEntity){
         userEntity.setId(userId);
-        UserEntity updatedUser = userService.updateUser(userEntity);
+        UserDto updatedUser = userService.updateUser(userEntity);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
