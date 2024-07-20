@@ -1,7 +1,6 @@
 package com.springgroup.springboot_rest_api.controller;
 
 import com.springgroup.springboot_rest_api.dto.UserDto;
-import com.springgroup.springboot_rest_api.entity.UserEntity;
 import com.springgroup.springboot_rest_api.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

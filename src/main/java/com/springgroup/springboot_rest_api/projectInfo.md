@@ -6,4 +6,4 @@
 
 ## Interview Questions:
 > 1. JPA vs DTO
-> 2. 
+> 2. What is @bean
