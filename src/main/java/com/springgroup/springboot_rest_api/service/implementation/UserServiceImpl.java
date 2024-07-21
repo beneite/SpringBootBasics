@@ -2,6 +2,7 @@ package com.springgroup.springboot_rest_api.service.implementation;
 
 import com.springgroup.springboot_rest_api.dto.UserDto;
 import com.springgroup.springboot_rest_api.entity.UserEntity;
+import com.springgroup.springboot_rest_api.exception.ResourceNotFoundException;
 import com.springgroup.springboot_rest_api.mapper.AutoUserMapper;
 import com.springgroup.springboot_rest_api.mapper.UserMapper;
 import com.springgroup.springboot_rest_api.repository.UserRepository;
@@ -30,8 +31,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long id) {
-        Optional<UserEntity> entityOptional = userRepository.findById(id);
-        UserDto userGetDto = AutoUserMapper.MAPPER.mapToDto(entityOptional.get());
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", id)
+        );
+        UserDto userGetDto = AutoUserMapper.MAPPER.mapToDto(userEntity);
         return userGetDto;
     }
 
@@ -43,7 +46,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto userDto) {
-        UserEntity existingData = userRepository.findById(userDto.getId()).get();
+        UserEntity existingData = userRepository.findById(userDto.getId()).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", userDto.getId())
+        );
         // setting the new data to the existing one
         existingData.setFirstName(userDto.getFirstName());
         existingData.setLastName(userDto.getLastName());
@@ -55,6 +60,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long userId) {
+        UserEntity existingData = userRepository.findById(userId).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", userId)
+        );
         userRepository.deleteById(userId);
     }
 
