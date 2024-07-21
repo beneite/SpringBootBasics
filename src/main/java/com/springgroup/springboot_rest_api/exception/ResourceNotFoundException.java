@@ -1,3 +1,6 @@
+/**
+ *  Exception to catch resource not found
+ */
 package com.springgroup.springboot_rest_api.exception;
 
 
