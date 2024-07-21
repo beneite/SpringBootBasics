@@ -2,6 +2,7 @@ package com.springgroup.springboot_rest_api.controller;
 
 import com.springgroup.springboot_rest_api.dto.UserDto;
 import com.springgroup.springboot_rest_api.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class UserController {
 
     // Api to create user, end point: http://localhost:8080/api/user/create
     @PostMapping("create")
-    public ResponseEntity<UserDto> createUserApi(@RequestBody UserDto userEntity){
+    public ResponseEntity<UserDto> createUserApi(@Valid @RequestBody UserDto userEntity){
         UserDto savedUser = userService.createUser(userEntity);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -46,7 +47,7 @@ public class UserController {
 
     // Api to update the users data, endpoint: http://localhost:8080/api/user/update/2
     @PutMapping("update/{id}")
-    public ResponseEntity<UserDto> updateUserDetailsApi(@PathVariable("id") Long userId,@RequestBody UserDto userEntity){
+    public ResponseEntity<UserDto> updateUserDetailsApi(@PathVariable("id") Long userId,@Valid @RequestBody UserDto userEntity){
         userEntity.setId(userId);
         UserDto updatedUser = userService.updateUser(userEntity);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
