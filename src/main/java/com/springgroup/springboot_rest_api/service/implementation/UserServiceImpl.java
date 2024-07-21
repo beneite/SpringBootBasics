@@ -2,6 +2,8 @@ package com.springgroup.springboot_rest_api.service.implementation;
 
 import com.springgroup.springboot_rest_api.dto.UserDto;
 import com.springgroup.springboot_rest_api.entity.UserEntity;
+import com.springgroup.springboot_rest_api.exception.DuplicateEmailException;
+import com.springgroup.springboot_rest_api.exception.ResourceNotFoundException;
 import com.springgroup.springboot_rest_api.mapper.AutoUserMapper;
 import com.springgroup.springboot_rest_api.mapper.UserMapper;
 import com.springgroup.springboot_rest_api.repository.UserRepository;
@@ -22,6 +24,12 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
     @Override
     public UserDto createUser(UserDto userDto) {
+
+        Optional<UserEntity> ifEmailExist = userRepository.findByEmail(userDto.getEmail());     // check if email exist in DB
+        if(ifEmailExist.isPresent()){
+            throw new DuplicateEmailException(String.format("Email: %s, already available.", userDto.getEmail()));
+        }
+
         UserEntity userEntity = AutoUserMapper.MAPPER.mapToJpa(userDto);     // userEntity is of type JPA
         UserEntity savedEntity = userRepository.save(userEntity);     // savedEntity is of type JPA
         UserDto savedUserDto = AutoUserMapper.MAPPER.mapToDto(savedEntity);   // savedUserDto os of type DTO
@@ -30,8 +38,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long id) {
-        Optional<UserEntity> entityOptional = userRepository.findById(id);
-        UserDto userGetDto = AutoUserMapper.MAPPER.mapToDto(entityOptional.get());
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", id)
+        );
+        UserDto userGetDto = AutoUserMapper.MAPPER.mapToDto(userEntity);
         return userGetDto;
     }
 
@@ -43,11 +53,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto userDto) {
-        UserEntity existingData = userRepository.findById(userDto.getId()).get();
+        UserEntity existingData = userRepository.findById(userDto.getId()).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", userDto.getId())
+        );
         // setting the new data to the existing one
         existingData.setFirstName(userDto.getFirstName());
         existingData.setLastName(userDto.getLastName());
         existingData.setEmail(userDto.getEmail());
+
+        Optional<UserEntity> ifEmailExist = userRepository.findByEmail(userDto.getEmail());     // check if email exist in DB
+        if(ifEmailExist.isPresent()){
+            throw new DuplicateEmailException(String.format("Email: %s, already available.", userDto.getEmail()));
+        }
+
         // saving the data
         UserEntity savedUser = userRepository.save(existingData);
         return AutoUserMapper.MAPPER.mapToDto(savedUser);
@@ -55,6 +73,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long userId) {
+        UserEntity existingData = userRepository.findById(userId).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", userId)
+        );
         userRepository.deleteById(userId);
     }
 
