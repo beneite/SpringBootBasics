@@ -22,14 +22,14 @@ import java.util.List;
 @RequestMapping("MyCustomApi")
 public class StudentController {
 
-    // url: http://localhost:8080/getStudentDetails
+    // url: http://localhost:8080/MyCustomApi/MyCustomApi/getStudentDetails
     @GetMapping("/getStudentDetails")
     public Student returnStudentDetails(){
         Student student = new Student(1, "Ashish", "Mishra");
         return student;
     }
 
-    // url: http://localhost:8080/getAllStudentDetails
+    // url: http://localhost:8080/MyCustomApi/getAllStudentDetails
     @GetMapping("/getAllStudentDetails")
     public List<Student> returnAllStudentDetails(){
         ArrayList<Student> allStudentList = new ArrayList<>();
@@ -42,21 +42,21 @@ public class StudentController {
         return allStudentList;
     }
 
-    // url: http://localhost:8080/getStudentData/2/Ashish/Mishra
+    // url: http://localhost:8080/MyCustomApi/getStudentData/2/Ashish/Mishra
     // REST Api using path variable
     @GetMapping("/getStudentData/{id}/{first-name}/{last-name}")
     public Student returnStudentData(@PathVariable("id") int studentId, @PathVariable("first-name") String firstName, @PathVariable("last-name") String lastName){
         return new Student(studentId, firstName, lastName);
     }
 
-    // url: http://localhost:8080/student/query?id=1&firstName=Ashish&lastName=Mishra
+    // url: http://localhost:8080/MyCustomApi/student/query?id=1&firstName=Ashish&lastName=Mishra
     // REST Api using request params/ query param
     @GetMapping("/student/query")
     public Student getStudentWithQueryParams(@RequestParam("id") int studentId, @RequestParam("firstName") String studentFirstName, @RequestParam("lastName") String studentLastName){
         return new Student(studentId, studentFirstName, studentLastName);
     }
 
-    // url: http://localhost:8080/student/create
+    // url: http://localhost:8080/MyCustomApi/student/create
     // REST Api [POST] to add student record
     @PostMapping("/student/create")
     @ResponseStatus(HttpStatus.CREATED)
@@ -68,7 +68,7 @@ public class StudentController {
         return student;
     }
 
-    // url: http://localhost:8080/student/3/update
+    // url: http://localhost:8080/MyCustomApi/student/3/update
     // REST Api [PUT] to update student record
     @PutMapping("/student/{id}/update")
     public Student updateStudentRecord(@RequestBody Student student, @PathParam("id") Integer studentId){
@@ -77,14 +77,14 @@ public class StudentController {
         return student;
     }
 
-    // url: http://localhost:8080/student/3/delete
+    // url: http://localhost:8080/MyCustomApi/student/3/delete
     // REST Api [DELETE] to delete student record
     @DeleteMapping("/student/{id}/delete")
     public String deleteStudentRecord(@PathParam("id") Integer studentId){
         return "Record deleted";
     }
 
-    // url: http://localhost:8080/getStudentDetailsUsingResponseEntity
+    // url: http://localhost:8080/MyCustomApi/getStudentDetailsUsingResponseEntity
     // ResponseEntity example
     @GetMapping("/getStudentDetailsUsingResponseEntity")
     public ResponseEntity<Student> returnStudentDetailsWithResponseEntity(){
@@ -92,7 +92,7 @@ public class StudentController {
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
-    // url: http://localhost:8080/getStudentDetailsUsingResponseEntityWithHeaders
+    // url: http://localhost:8080/MyCustomApi/getStudentDetailsUsingResponseEntityWithHeaders
     // ResponseEntity example with headers
     @GetMapping("/getStudentDetailsUsingResponseEntityWithHeaders")
     public ResponseEntity<Student> returnStudentDetailsWithResponseEntityWithHeaders(){
@@ -102,7 +102,7 @@ public class StudentController {
                 .body(student);
     }
 
-    // url: http://localhost:8080/getAllStudentDetailsUsingResponseEntity
+    // url: http://localhost:8080/MyCustomApi/getAllStudentDetailsUsingResponseEntity
     // ResponseEntity example with Ok static method
     @GetMapping("/getAllStudentDetailsUsingResponseEntity")
     public ResponseEntity<List<Student>> returnAllStudentDetailsUsingResponseEntity(){
@@ -116,7 +116,7 @@ public class StudentController {
         return ResponseEntity.ok(allStudentList);
     }
 
-    // url: http://localhost:8080/student/createUsingResponseEntity
+    // url: http://localhost:8080/MyCustomApi/student/createUsingResponseEntity
     // REST Api [POST] to add student record using response entity
     @PostMapping("/student/createUsingResponseEntity")
     public ResponseEntity<Student> createStudentRecordUsingResponseEntity(@RequestBody Student student){
