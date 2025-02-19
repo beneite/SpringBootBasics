@@ -1,0 +1,22 @@
+version: "3.0"
+
+services:
+  mysql-service:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: userManagementDb
+      MYSQL_ROOT_PASSWORD: ashish@123
+      MYSQL_USER: ashish
+      MYSQL_PASSWORD: ashish@123
+    ports:
+      - "8082:3306"
+    volumes:
+      - ./init-script:/docker-entrypoint-initdb.d
+      - ./mysql_data:/var/lib/mysql
+
+  adminer-service:
+      image: adminer
+      restart: always
+      ports:
+        - "8081:8080"

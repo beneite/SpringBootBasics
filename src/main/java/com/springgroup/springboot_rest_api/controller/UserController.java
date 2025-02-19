@@ -1,7 +1,7 @@
 package com.springgroup.springboot_rest_api.controller;
 
 import com.springgroup.springboot_rest_api.dto.UserDto;
-import com.springgroup.springboot_rest_api.service.UserService;
+import com.springgroup.springboot_rest_api.service.implementation.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,7 +29,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
 
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     // Api to create user, end point: http://localhost:8080/api/user/create
     @Operation(
@@ -42,7 +42,7 @@ public class UserController {
     )
     @PostMapping("create")
     public ResponseEntity<UserDto> createUserApi(@Valid @RequestBody UserDto userEntity){
-        UserDto savedUser = userService.createUser(userEntity);
+        UserDto savedUser = userServiceImpl.createUser(userEntity);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
@@ -57,7 +57,7 @@ public class UserController {
     // Api to get the user by id, end point: http://localhost:8080/api/user/getUserById/2
     @GetMapping("getUserById/{id}")
     public ResponseEntity<UserDto> getUserByIdApi(@PathVariable("id") Long userId){
-        UserDto getUser = userService.getUserById(userId);
+        UserDto getUser = userServiceImpl.getUserById(userId);
         return new ResponseEntity<>(getUser, HttpStatus.OK);
     }
 
@@ -72,7 +72,7 @@ public class UserController {
     // Api to get all the users data, endpoint: http://localhost:8080/api/user/getAllUser
     @GetMapping("getAllUser")
     public ResponseEntity<List<UserDto>> getAllUsersApi(){
-        List<UserDto> allUsersResponse = userService.getAllUsers();
+        List<UserDto> allUsersResponse = userServiceImpl.getAllUsers();
         return new ResponseEntity<>(allUsersResponse, HttpStatus.OK);
     }
 
@@ -88,7 +88,7 @@ public class UserController {
     @PutMapping("update/{id}")
     public ResponseEntity<UserDto> updateUserDetailsApi(@PathVariable("id") Long userId,@Valid @RequestBody UserDto userEntity){
         userEntity.setId(userId);
-        UserDto updatedUser = userService.updateUser(userEntity);
+        UserDto updatedUser = userServiceImpl.updateUser(userEntity);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
@@ -103,7 +103,7 @@ public class UserController {
     // Api to delete the users data, endpoint: http://localhost:8080/api/user/delete/2
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteUserApi(@PathVariable("id") Long userId){
-        userService.deleteUser(userId);
+        userServiceImpl.deleteUser(userId);
         return new ResponseEntity<>("User with id:"+userId+" Deleted", HttpStatus.OK);
     }
 
