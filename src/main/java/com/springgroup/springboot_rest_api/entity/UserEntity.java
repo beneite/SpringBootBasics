@@ -16,20 +16,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "usersTable")
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "User Id")
+    @Column(name = "userId")
     private Long id;
 
-    @Column(name = "First-Name", nullable = false)
+    @Column(name = "userFirstName", nullable = false)
     private String firstName;
 
-    @Column(name = "Last-Name", nullable = false)
+    @Column(name = "userLastName", nullable = false)
     private String lastName;
 
-    @Column(name = "Email", unique = true)
+    @Column(name = "userEmail", unique = true)
     private String email;
 }
